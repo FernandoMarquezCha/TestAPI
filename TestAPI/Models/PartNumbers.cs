@@ -14,10 +14,14 @@ namespace TestAPI.Models
         [Required]
         [Column(TypeName = "varchar(50)")]
         public string PartNumber { get; set; }
-     
-      
 
-        public Customers FKCustomers { get; set; }
+
+
+        [Display(Name = "FKCustomer")]
+        public virtual int FKCustomer { get; set; }
+
+        [ForeignKey("FKCustomer")]
+        public virtual Customers Customers { get; set; }
 
         [Required]
         [Column(TypeName = "bit")]

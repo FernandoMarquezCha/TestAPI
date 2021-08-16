@@ -18,16 +18,18 @@ namespace TestAPI.Models
         [Column(TypeName = "varchar(5)")]
         public string Prefix { get; set; }
 
-     
-       
 
-        public Buildings FKBuildings { get; set; }
+        [Display(Name = "FKBuilding")]
+        public virtual int FKBuilding { get; set; }
+
+        [ForeignKey("FKBuilding")]
+        public virtual Buildings Buildings { get; set; }
 
         [Required]
         [Column(TypeName = "bit")]
         public bool Avaliable { get; set; }
 
-        public ICollection<PartNumbers> PartNumbers { get; set; }
+        
         
     }
 }

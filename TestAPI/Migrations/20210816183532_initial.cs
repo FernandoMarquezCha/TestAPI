@@ -28,18 +28,18 @@ namespace TestAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Customer = table.Column<string>(type: "varchar(50)", nullable: false),
                     Prefix = table.Column<string>(type: "varchar(5)", nullable: false),
-                    FKBuildingsPKBuilding = table.Column<int>(type: "int", nullable: true),
+                    FKBuilding = table.Column<int>(type: "int", nullable: false),
                     Avaliable = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.PKCustomers);
                     table.ForeignKey(
-                        name: "FK_Customers_Buildings_FKBuildingsPKBuilding",
-                        column: x => x.FKBuildingsPKBuilding,
+                        name: "FK_Customers_Buildings_FKBuilding",
+                        column: x => x.FKBuilding,
                         principalTable: "Buildings",
                         principalColumn: "PKBuilding",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -49,29 +49,29 @@ namespace TestAPI.Migrations
                     PKPartNumbers = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PartNumber = table.Column<string>(type: "varchar(50)", nullable: false),
-                    FKCustomersPKCustomers = table.Column<int>(type: "int", nullable: true),
+                    FKCustomer = table.Column<int>(type: "int", nullable: false),
                     Avaliable = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PartNumbers", x => x.PKPartNumbers);
                     table.ForeignKey(
-                        name: "FK_PartNumbers_Customers_FKCustomersPKCustomers",
-                        column: x => x.FKCustomersPKCustomers,
+                        name: "FK_PartNumbers_Customers_FKCustomer",
+                        column: x => x.FKCustomer,
                         principalTable: "Customers",
                         principalColumn: "PKCustomers",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_FKBuildingsPKBuilding",
+                name: "IX_Customers_FKBuilding",
                 table: "Customers",
-                column: "FKBuildingsPKBuilding");
+                column: "FKBuilding");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PartNumbers_FKCustomersPKCustomers",
+                name: "IX_PartNumbers_FKCustomer",
                 table: "PartNumbers",
-                column: "FKCustomersPKCustomers");
+                column: "FKCustomer");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
